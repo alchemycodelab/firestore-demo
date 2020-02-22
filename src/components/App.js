@@ -1,8 +1,28 @@
 import React from 'react';
-import { useFirestore } from '../firebase/hooks';
-import { notesCollection } from '../firebase/firebase';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
+import { AuthProvider, withSession } from '../firebase/AuthProvider';
+import CreateNote from './notes/CreateNote';
+import Notes from './notes/Notes';
+
+const Home = () => (
+  <>
+    <CreateNote />
+    <Notes />
+  </>
+);
 
 export default function App() {
-  const notesByRyan = useFirestore(notesCollection.orderBy('createdAt').where('author', '==', 'ryan'));
-  return <h1>Hello World</h1>;
+  return (
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route path="/" component={withSession(Home)} />
+        </Switch>
+      </Router>
+    </AuthProvider>
+  );
 }

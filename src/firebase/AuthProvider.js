@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { auth, subscribe, loginWithProvider } from '../firebase/firebase';
-import { useHistory } from 'react-router-dom';
+import { subscribe, loginWithProvider } from './firebase';
 
 const AuthContext = createContext();
 
